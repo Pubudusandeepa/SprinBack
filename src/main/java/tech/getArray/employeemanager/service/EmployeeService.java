@@ -2,6 +2,7 @@ package tech.getArray.employeemanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.getArray.employeemanager.exeception.UserNotFoundExeption;
 import tech.getArray.employeemanager.model.Employee;
 import tech.getArray.employeemanager.repo.EmployeeRepo;
 
@@ -25,6 +26,17 @@ public class EmployeeService {
     public List<Employee> findAllEmployees(){
         return employeeRepo.findAll();
     }
+
+    public Employee findEmployeeById(Long id) {
+        return employeeRepo.findEmployeeById(id)
+                .orElseThrow(()->  new UserNotFoundExeption("user by id"+ id+"was not found"));
+    }
+
+    public void deleteEmployee(Long id) {
+        employeeRepo.deleteAllById(id);
+    }
+
+
 
 
 }
