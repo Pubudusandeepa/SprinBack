@@ -34,8 +34,10 @@ public class EmployeeResources {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Employee> addEmployee(Employee employee){
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
+
         Employee newEmployee = employeeService.addEmployee(employee);
+
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
@@ -46,7 +48,7 @@ public class EmployeeResources {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> udeleteEmployee(@PathVariable("id") Long id){
+    public ResponseEntity<?> deleteEmployee(@PathVariable("id") Long id){
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
