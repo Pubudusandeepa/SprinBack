@@ -3,10 +3,7 @@ package tech.getArray.employeemanager;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.getArray.employeemanager.model.Employee;
 import tech.getArray.employeemanager.service.EmployeeService;
 
@@ -22,10 +19,10 @@ public class EmployeeResources {
         this.employeeService = employeeService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeService.findAllEmployees();
-        return new ResponseEntity<List<Employee>>(employees, HttpStatus.OK);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
 
     }
 
@@ -34,6 +31,12 @@ public class EmployeeResources {
         Employee employee = employeeService.findEmployeeById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
 
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Employee> addEmployee(Employee employee){
+        Employee newEmployee = employeeService.addEmployee(employee);
+        return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }
 
 
